@@ -1,0 +1,52 @@
+augmentation_job:
+  approach: "SEQ" #"PAR"
+  export: True
+  paths:
+    import_path:
+    export_path:
+
+augmentation_approach:
+  sequential:
+    sequence:
+      - time_stretch
+      - pitch_shift
+      - volume_control
+      - add_noise
+      - time_shift
+  parallel:
+    methods:
+      - time_stretch
+      - pitch_shift
+      - volume_control
+      - add_noise
+      - time_shift
+    n_methods: 5
+
+augmentation_method:
+  time_stretch:
+    rate: 2
+  pitch_shift:
+    sr: 22050
+    bins_per_octave: 12
+    n_steps: -18
+  volume_control:
+    gain_dB: 3
+  add_noise:
+    snr_db: 20
+  time_shift:
+    shift_pct: -10
+
+file_suffixes:
+  generate_suffixes: True
+  detailed_suffixes: True
+  time_stretch:
+    suffix: "_TST"
+  pitch_shift:
+    suffix: "_PSH"
+  volume_control:
+    suffix: "_VC"
+  add_noise:
+    suffix: "_AN"
+  time_shift:
+    suffix: "_TSH"
+
