@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to Audio Augmentation’s documentation! &mdash; Audio Augmentation 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> Audio Augmentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to Audio Augmentation’s documentation!</a></li>
+<li><a class="reference internal" href="#audio-augmentation-methods">Audio Augmentation Methods</a></li>
+<li><a class="reference internal" href="#routines-augmentation-approaches">Routines - Augmentation Approaches</a></li>
+<li><a class="reference internal" href="#routines-batch-processing">Routines - Batch Processing</a></li>
+<li><a class="reference internal" href="#module-src.data_aug.utils">Utils Functions</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Audio Augmentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>Welcome to Audio Augmentation’s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="welcome-to-audio-augmentation-s-documentation">
+<h1>Welcome to Audio Augmentation’s documentation!<a class="headerlink" href="#welcome-to-audio-augmentation-s-documentation" title="Permalink to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="audio-augmentation-methods">
+<h1>Audio Augmentation Methods<a class="headerlink" href="#audio-augmentation-methods" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-src.data_aug.audio_augmentation"></span><dl class="py class">
+<dt class="sig sig-object py" id="src.data_aug.audio_augmentation.Augmenter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.data_aug.audio_augmentation.</span></span><span class="sig-name descname"><span class="pre">Augmenter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data_aug.audio_augmentation.Augmenter" title="Permalink to this definition"></a></dt>
+<dd><p>A class to represent audio augmenter. Currently, supported augmentation methods: time_stretch,
+pitch_shift, volume_control, time_shift and add_noise.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.data_aug.audio_augmentation.Augmenter.add_noise">
+<span class="sig-name descname"><span class="pre">add_noise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">snr_db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#src.data_aug.audio_augmentation.Augmenter.add_noise" title="Permalink to this definition"></a></dt>
+<dd><p>This method adds noise by specified snr.
+Args:</p>
+<blockquote>
+<div><p>snr_db: Signal-Noise-Ratio (SNR)</p>
+</div></blockquote>
+<p>Returns: The audio time-series with added white noise.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.data_aug.audio_augmentation.Augmenter.pitch_shift">
+<span class="sig-name descname"><span class="pre">pitch_shift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins_per_octave</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#src.data_aug.audio_augmentation.Augmenter.pitch_shift" title="Permalink to this definition"></a></dt>
+<dd><p>This method shifts pitch of input signal by specified number of steps.
+Args:</p>
+<blockquote>
+<div><p>sr: Sampling rate
+bins_per_octave: Bins per octave
+n_steps: Number of fractional steps to shift.
+(A step is equal to a semitone if bins_per_octave is set to 12.)</p>
+</div></blockquote>
+<p>Returns: The pitch-shifted audio time-series.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.data_aug.audio_augmentation.Augmenter.time_shift">
+<span class="sig-name descname"><span class="pre">time_shift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shift_pct</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#src.data_aug.audio_augmentation.Augmenter.time_shift" title="Permalink to this definition"></a></dt>
+<dd><p>This method shifts input signal in time by given percentage
+Args:</p>
+<blockquote>
+<div><p>shift_pct: Time shift in percents.</p>
+</div></blockquote>
+<p>Returns: Time shifted audio time-series.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.data_aug.audio_augmentation.Augmenter.time_stretch">
+<span class="sig-name descname"><span class="pre">time_stretch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#src.data_aug.audio_augmentation.Augmenter.time_stretch" title="Permalink to this definition"></a></dt>
+<dd><p>This method speeds up or slows down input signal by given rate.
+Args:</p>
+<blockquote>
+<div><p>rate: Stretch factor (Real positive scalar). If rate&gt;1 the signal is speed up.
+If rate&lt;1 the signal is slowed down.</p>
+</div></blockquote>
+<p>Returns: Audio time series stretched by the specified rate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.data_aug.audio_augmentation.Augmenter.volume_control">
+<span class="sig-name descname"><span class="pre">volume_control</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gain_dB</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#src.data_aug.audio_augmentation.Augmenter.volume_control" title="Permalink to this definition"></a></dt>
+<dd><p>This method controls volume of input signal.
+Args:</p>
+<blockquote>
+<div><p>gain_dB: Volume gain in dB.</p>
+</div></blockquote>
+<p>Returns: The audio time-series with increased or decreased volume.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="routines-augmentation-approaches">
+<h1>Routines - Augmentation Approaches<a class="headerlink" href="#routines-augmentation-approaches" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-src.routines.augmentation"></span><dl class="py function">
+<dt class="sig sig-object py" id="src.routines.augmentation.run_parallel_augmentation">
+<span class="sig-prename descclassname"><span class="pre">src.routines.augmentation.</span></span><span class="sig-name descname"><span class="pre">run_parallel_augmentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_signal_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">methods</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_methods</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.routines.augmentation.run_parallel_augmentation" title="Permalink to this definition"></a></dt>
+<dd><p>This function applies parallel data augmentation on a given input signal.
+Args:</p>
+<blockquote>
+<div><p>input_signal_path: Path to input signal (time series data).
+config: Config.
+methods: List of audio augmentation methods.
+n_methods: Number of random methods picked from a list of methods.
+export: Save outputs (True/False)
+export_path: Export path.</p>
+</div></blockquote>
+<p>Returns: List of augmented time series.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.routines.augmentation.run_sequential_augmentation">
+<span class="sig-prename descclassname"><span class="pre">src.routines.augmentation.</span></span><span class="sig-name descname"><span class="pre">run_sequential_augmentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_signal_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#src.routines.augmentation.run_sequential_augmentation" title="Permalink to this definition"></a></dt>
+<dd><p>This function applies sequence of augmentation methods on a given input signal.
+Args:</p>
+<blockquote>
+<div><p>input_signal_path: Path to input signal (time series data).
+config: Config file.
+sequence: List (sequence) of augmentation methods.
+export: Save outputs (True/False)
+export_path: Export path.</p>
+</div></blockquote>
+<p>Returns: Augmented signal and augmented filename.</p>
+</dd></dl>
+
+</section>
+<section id="routines-batch-processing">
+<h1>Routines - Batch Processing<a class="headerlink" href="#routines-batch-processing" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-src.routines.batch_processing"></span><dl class="py class">
+<dt class="sig sig-object py" id="src.routines.batch_processing.BatchAugmentation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.routines.batch_processing.</span></span><span class="sig-name descname"><span class="pre">BatchAugmentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.routines.batch_processing.BatchAugmentation" title="Permalink to this definition"></a></dt>
+<dd><p>A class to represent batch augmentation job (either sequential or parallel augmentation job.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.routines.batch_processing.BatchAugmentation.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.routines.batch_processing.BatchAugmentation.run" title="Permalink to this definition"></a></dt>
+<dd><p>This is a run method to launch batch data augmentation.
+Returns: None.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-src.data_aug.utils">
+<span id="utils-functions"></span><h1>Utils Functions<a class="headerlink" href="#module-src.data_aug.utils" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.data_aug.utils.export_audio_file">
+<span class="sig-prename descclassname"><span class="pre">src.data_aug.utils.</span></span><span class="sig-name descname"><span class="pre">export_audio_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">audio_signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">22050</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data_aug.utils.export_audio_file" title="Permalink to this definition"></a></dt>
+<dd><p>This function saves augmented file to a given path.
+Args:</p>
+<blockquote>
+<div><p>audio_signal: Augmented audio file represented as a numpy array.
+file_name: File name for an augmented file.
+path: Export path.
+sr: Sampling rate</p>
+</div></blockquote>
+<p>Returns: None</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.data_aug.utils.generate_file_name">
+<span class="sig-prename descclassname"><span class="pre">src.data_aug.utils.</span></span><span class="sig-name descname"><span class="pre">generate_file_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#src.data_aug.utils.generate_file_name" title="Permalink to this definition"></a></dt>
+<dd><p>This function generates file name including file suffix.
+Args:</p>
+<blockquote>
+<div><p>original_name: Original input file name.
+config: Config file as a dictionary.
+method: Augmentation method.</p>
+</div></blockquote>
+<p>Returns: File name as a string.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.data_aug.utils.generate_suffix">
+<span class="sig-prename descclassname"><span class="pre">src.data_aug.utils.</span></span><span class="sig-name descname"><span class="pre">generate_suffix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_detailed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="k"><span class="pre">True</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#src.data_aug.utils.generate_suffix" title="Permalink to this definition"></a></dt>
+<dd><p>This function creates suffix.
+Args:</p>
+<blockquote>
+<div><p>config: Configuration file as a dictionary.
+method: Augmentation method.
+is_detailed: A flag to represent detailed or simple suffix.</p>
+</div></blockquote>
+<p>Returns: Generated suffix as a string.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.data_aug.utils.print_plot_play">
+<span class="sig-prename descclassname"><span class="pre">src.data_aug.utils.</span></span><span class="sig-name descname"><span class="pre">print_plot_play</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data_aug.utils.print_plot_play" title="Permalink to this definition"></a></dt>
+<dd><p>This function plots the wave frame and creates player
+Args:</p>
+<blockquote>
+<div><p>x: Input signal represented as a numpy array.
+sr: Sampling rate.
+text: Text to print</p>
+</div></blockquote>
+<p>Returns: None</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.data_aug.utils.read_yaml_config">
+<span class="sig-prename descclassname"><span class="pre">src.data_aug.utils.</span></span><span class="sig-name descname"><span class="pre">read_yaml_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#src.data_aug.utils.read_yaml_config" title="Permalink to this definition"></a></dt>
+<dd><p>This function reads a yaml config file.
+Args:</p>
+<blockquote>
+<div><p>path: Path to config file.</p>
+</div></blockquote>
+<p>Returns: Config file as a dictionary.</p>
+</dd></dl>
+
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, djolle87@gmail.com.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

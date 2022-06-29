@@ -11,6 +11,3 @@ if __name__ == "__main__":
 
     batch_job = BatchAugmentation(config=config)
     batch_job.run()
-
-# TODO: Create Dockerfile
-# TODO: Create ReadMe
