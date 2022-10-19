@@ -1,7 +1,8 @@
-import logging
-
 import librosa
+import logging
 import numpy as np
+import pyroomacoustics as pra
+import scipy.signal as sg
 
 
 class Augmenter:
@@ -163,3 +164,175 @@ class Augmenter:
         y_noise = (y + white_noise * 1 / a_white * a_noise).astype(y.dtype)
         self._logger.info(f"\t\t\tFinished adding noise.")
         return y_noise
+
+    def polarity_inversion(self) -> np.ndarray:
+        """
+        This method performs polarity inversion.
+        """
+        self._logger.info(f"\t\t\tStarting polarity inversion...")
+        y = self._input_signal.copy()
+        y_inverse = -1 * y
+        self._logger.info(f"\t\t\tFinished polarity inversion.")
+
+        return y_inverse
+
+    def add_reverb(self, sr: int, delay: float, rt60: float, room_dim: np.ndarray, src_pos: np.ndarray,
+                   mic_pos: np.ndarray) -> np.ndarray:
+        """
+        This method adds reverberation to a given signal.
+        Args:
+            sr: Sampling frequency
+            delay: A time delay until the source signal starts in the simulation
+            rt60: Desired RT60 (time it takes to go from full amplitude to 60 db decay) in seconds
+            room_dim: Room dimensions (L, W, H)
+            src_pos: Source (Speaker) position (L, W, H)
+            mic_pos: Microphone position (L, W, H)
+
+        Returns: The audio time-series with added reverberation.
+        """
+
+        self._logger.info(f"\t\t\tStarting adding reverb...")
+
+        if not (self._config or sr or rt60 or room_dim or src_pos or mic_pos):
+            raise Exception(f"You need to pass either a config or arguments.")
+
+        if self._config:
+            sr = self._config["augmentation_method"]["add_reverb"]["sr"]
+            delay = self._config["augmentation_method"]["add_reverb"]["delay"]
+            rt60 = self._config["augmentation_method"]["add_reverb"]["rt60"]
+            room_dim = self._config["augmentation_method"]["add_reverb"]["room_dim"]
+            src_pos = self._config["augmentation_method"]["add_reverb"]["src_pos"]
+            mic_pos = self._config["augmentation_method"]["add_reverb"]["mic_pos"]
+            self._logger.info(
+                f"\t\t\tUsing config values for sr: {sr}, delay: {delay}, rt60: {rt60}, room_dim: {room_dim}, src_pos: {src_pos}, mic_pos: {mic_pos}.")
+        else:
+            self._logger.info(
+                f"\t\t\tUsing manually set values for sr: {sr}, delay: {delay}, rt60: {rt60}, room_dim: {room_dim}, src_pos: {src_pos}, mic_pos: {mic_pos}.")
+
+        y = self._input_signal.copy()
+
+        # Room properties
+        e_absorption, max_order = pra.inverse_sabine(rt60, room_dim)
+
+        # Create a room
+        room = pra.ShoeBox(
+            room_dim, fs=sr, materials=pra.Material(e_absorption), max_order=max_order
+        )
+
+        # Add sources
+        room.add_source(src_pos, signal=y, delay=delay)
+
+        # Add receiver
+        mic_loc = np.c_[mic_pos]
+
+        # Place the mic in the room
+        room.add_microphone_array(mic_loc)
+
+        # Simulate reverberation
+        room.simulate()
+        y_reverb = room.mic_array.signals[0]
+
+        return y_reverb
+
+    def bandpass_filter(self, lowcut, highcut, sr, filter_order=5):
+        """
+        This method performs band pass filtering.
+        Args:
+            lowcut: Lowcut frequency
+            highcut: Highcut frequency
+            sr: Sampling frequency
+            filter_order: Filter order
+
+        Returns: The audio time-series filtered by bandpass filter.
+        """
+        self._logger.info(f"\t\t\tStarting bandpass filtering...")
+
+        if not (self._config or lowcut or highcut or sr or filter_order):
+            raise Exception(f"You need to pass either a config or arguments.")
+
+        if self._config:
+            lowcut = self._config["augmentation_method"]["bandpass_filter"]["lowcut"]
+            highcut = self._config["augmentation_method"]["bandpass_filter"]["highcut"]
+            filter_order = self._config["augmentation_method"]["bandpass_filter"]["filter_order"]
+            sr = self._config["augmentation_method"]["bandpass_filter"]["sr"]
+            self._logger.info(
+                f"\t\t\tUsing config values for lowcut: {lowcut}, highcut: {highcut}, filter order: {filter_order}, sr: {sr}.")
+        else:
+            self._logger.info(
+                f"\t\t\tUsing manually set values for lowcut: {lowcut}, highcut: {highcut}, filter order: {filter_order}, sr: {sr}.")
+
+        y = self._input_signal.copy()
+
+        nyq = 0.5 * sr
+        low = lowcut / nyq
+        high = highcut / nyq
+        b, a = sg.butter(filter_order, [low, high], btype='band')
+
+        y_filtered = sg.lfilter(b, a, y)
+        self._logger.info(f"\t\t\tFinished bandpass filtering...")
+        return y_filtered
+
+    def lowpass_filter(self, lowcut, sr, order=5):
+        """
+        This method performs low pass filtering.
+        Args:
+            lowcut: Lowcut frequency
+            sr: Sampling frequency
+            order: Filter order
+
+        Returns: The audio time-series filtered by lowpass filter.
+        """
+        self._logger.info(f"\t\t\tStarting lowpass filtering...")
+
+        if not (self._config or lowcut or sr or order):
+            raise Exception(f"You need to pass either a config or arguments.")
+
+        if self._config:
+            lowcut = self._config["augmentation_method"]["bandpass_filter"]["lowcut"]
+            order = self._config["augmentation_method"]["bandpass_filter"]["filter_order"]
+            sr = self._config["augmentation_method"]["bandpass_filter"]["sr"]
+            self._logger.info(
+                f"\t\t\tUsing config values for lowcut: {lowcut}, filter order: {order}, sr: {sr}.")
+        else:
+            self._logger.info(
+                f"\t\t\tUsing manually set values for lowcut: {lowcut}, filter order: {order}, sr: {sr}.")
+
+        y = self._input_signal.copy()
+
+        b, a = sg.butter(order, lowcut, fs=sr, btype='low', analog=False)
+        y_filtered = sg.lfilter(b, a, y)
+        self._logger.info(f"\t\t\tFinished lowpass filtering...")
+        return y_filtered
+
+    def highpass_filter(self, highcut, sr, order=5):
+        """
+        This method performs hith pass filtering.
+        Args:
+            highcut: Lowcut frequency
+            sr: Sampling frequency
+            order: Filter order
+
+        Returns: The audio time-series filtered by lowpass filter.
+        """
+        self._logger.info(f"\t\t\tStarting highpass filtering...")
+
+        if not (self._config or highcut or sr or order):
+            raise Exception(f"You need to pass either a config or arguments.")
+
+        if self._config:
+            lowcut = self._config["augmentation_method"]["bandpass_filter"]["highcut"]
+            order = self._config["augmentation_method"]["bandpass_filter"]["filter_order"]
+            sr = self._config["augmentation_method"]["bandpass_filter"]["sr"]
+            self._logger.info(
+                f"\t\t\tUsing config values for highcut: {highcut}, filter order: {order}, sr: {sr}.")
+        else:
+            self._logger.info(
+                f"\t\t\tUsing manually set values for highcut: {highcut}, filter order: {order}, sr: {sr}.")
+
+        y = self._input_signal.copy()
+
+        nyq = 0.5 * sr
+        normal_cutoff = highcut / nyq
+        b, a = sg.butter(order, normal_cutoff, btype='high', analog=False)
+        y_filtered = sg.filtfilt(b, a, y)
+        return y_filtered

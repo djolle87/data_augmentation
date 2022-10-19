@@ -94,6 +94,62 @@ Args:</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="src.data_aug.audio_augmentation.Augmenter.add_reverb">
+<span class="sig-name descname"><span class="pre">add_reverb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rt60</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">room_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mic_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#src.data_aug.audio_augmentation.Augmenter.add_reverb" title="Permalink to this definition"></a></dt>
+<dd><p>This method adds reverberation to a given signal.
+Args:</p>
+<blockquote>
+<div><p>sr: Sampling frequency
+delay: A time delay until the source signal starts in the simulation
+rt60: Desired RT60 (time it takes to go from full amplitude to 60 db decay) in seconds
+room_dim: Room dimensions (L, W, H)
+src_pos: Source (Speaker) position (L, W, H)
+mic_pos: Microphone position (L, W, H)</p>
+</div></blockquote>
+<p>Returns: The audio time-series with added reverberation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.data_aug.audio_augmentation.Augmenter.bandpass_filter">
+<span class="sig-name descname"><span class="pre">bandpass_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lowcut</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">highcut</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data_aug.audio_augmentation.Augmenter.bandpass_filter" title="Permalink to this definition"></a></dt>
+<dd><p>This method performs band pass filtering.
+Args:</p>
+<blockquote>
+<div><p>lowcut: Lowcut frequency
+highcut: Highcut frequency
+sr: Sampling frequency
+order: Filter order</p>
+</div></blockquote>
+<p>Returns: The audio time-series filtered by bandpass filter.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.data_aug.audio_augmentation.Augmenter.highpass_filter">
+<span class="sig-name descname"><span class="pre">highpass_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">highcut</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data_aug.audio_augmentation.Augmenter.highpass_filter" title="Permalink to this definition"></a></dt>
+<dd><p>This method performs hith pass filtering.
+Args:</p>
+<blockquote>
+<div><p>highcut: Lowcut frequency
+sr: Sampling frequency
+order: Filter order</p>
+</div></blockquote>
+<p>Returns: The audio time-series filtered by lowpass filter.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.data_aug.audio_augmentation.Augmenter.lowpass_filter">
+<span class="sig-name descname"><span class="pre">lowpass_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lowcut</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data_aug.audio_augmentation.Augmenter.lowpass_filter" title="Permalink to this definition"></a></dt>
+<dd><p>This method performs low pass filtering.
+Args:</p>
+<blockquote>
+<div><p>lowcut: Lowcut frequency
+sr: Sampling frequency
+order: Filter order</p>
+</div></blockquote>
+<p>Returns: The audio time-series filtered by lowpass filter.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="src.data_aug.audio_augmentation.Augmenter.pitch_shift">
 <span class="sig-name descname"><span class="pre">pitch_shift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins_per_octave</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#src.data_aug.audio_augmentation.Augmenter.pitch_shift" title="Permalink to this definition"></a></dt>
 <dd><p>This method shifts pitch of input signal by specified number of steps.
@@ -105,6 +161,12 @@ n_steps: Number of fractional steps to shift.
 (A step is equal to a semitone if bins_per_octave is set to 12.)</p>
 </div></blockquote>
 <p>Returns: The pitch-shifted audio time-series.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.data_aug.audio_augmentation.Augmenter.polarity_inversion">
+<span class="sig-name descname"><span class="pre">polarity_inversion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#src.data_aug.audio_augmentation.Augmenter.polarity_inversion" title="Permalink to this definition"></a></dt>
+<dd><p>This method performs polarity inversion.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -238,7 +300,7 @@ is_detailed: A flag to represent detailed or simple suffix.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.data_aug.utils.print_plot_play">
-<span class="sig-prename descclassname"><span class="pre">src.data_aug.utils.</span></span><span class="sig-name descname"><span class="pre">print_plot_play</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data_aug.utils.print_plot_play" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.data_aug.utils.</span></span><span class="sig-name descname"><span class="pre">print_plot_play</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data_aug.utils.print_plot_play" title="Permalink to this definition"></a></dt>
 <dd><p>This function plots the wave frame and creates player
 Args:</p>
 <blockquote>

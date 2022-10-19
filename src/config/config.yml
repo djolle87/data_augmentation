@@ -13,6 +13,9 @@ augmentation_approach:
       - volume_control
       - add_noise
       - time_shift
+      - bandpass_filter
+      - add_reverb
+      - polarity_inversion
   parallel:
     methods:
       - time_stretch
@@ -20,7 +23,10 @@ augmentation_approach:
       - volume_control
       - add_noise
       - time_shift
-    n_methods: 5
+      - bandpass_filter
+      - add_reverb
+      - polarity_inversion
+    n_methods: 8
 
 augmentation_method:
   time_stretch:
@@ -35,6 +41,23 @@ augmentation_method:
     snr_db: 20
   time_shift:
     shift_pct: -10
+  lowpass_filter:
+    lowcut: 4000
+  highpass_filter:
+    highcut: 300
+  bandpass_filter:
+    lowcut: 300
+    highcut: 4000
+    filter_order: 5
+    sr: 22050
+  add_reverb:
+    sr: 22050
+    delay: 0.1
+    rt60: 0.3
+    room_dim: [5, 4, 2.7]
+    src_pos: [3, 3, 1.4]
+    mic_pos: [1, 1, 1.4]
+  polarity_inversion: {}
 
 file_suffixes:
   generate_suffixes: True
@@ -49,4 +72,13 @@ file_suffixes:
     suffix: "_AN"
   time_shift:
     suffix: "_TSH"
-
+  lowpass_filter:
+    suffix: "_LPF"
+  highpass_filter:
+    suffix: "_HPF"
+  bandpass_filter:
+    suffix: "_BPF"
+  add_reverb:
+    suffix: "_RVR"
+  polarity_inversion:
+    suffix: "_PI"

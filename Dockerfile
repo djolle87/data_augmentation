@@ -10,7 +10,7 @@ ENV IMPORT_DATA_PATH=/data_augmentation/import_data
 ENV EXPORT_DATA_PATH=/data_augmentation/export_data
 
 RUN apt-get update && \
-    apt-get install -y libsndfile1
+    apt-get install -y libsndfile1 python3-dev python3-pip
 
 WORKDIR /data_augmentation
 
@@ -22,6 +22,9 @@ COPY ./requirements.txt /data_augmentation/requirements.txt
 
 RUN python3.8 -m venv $VIRTUAL_ENV && \
     source $VIRTUAL_ENV/bin/activate && \
+    pip install Cython && \
+    pip install numpy && \
+    pip install --upgrade pip && \
     python3.8 -m pip install --no-cache-dir -r /data_augmentation/requirements.txt
 
 CMD python3.8 -m src.routines.main

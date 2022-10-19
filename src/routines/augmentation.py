@@ -32,7 +32,10 @@ def run_sequential_augmentation(input_signal_path: Path, config: dict, sequence:
     for method in sequence:
         aug = Augmenter(input_signal=y, file_name=file_name)
         tmp_config = config["augmentation_method"][method]
-        y = getattr(aug, method)(**tmp_config)
+        if tmp_config:
+            y = getattr(aug, method)(**tmp_config)
+        else:
+            y = getattr(aug, method)()
 
         aug_file_name = aug_file_name + generate_file_name(file_name, config, method).split(".wav")[0].split(
             file_name.split(".wav")[0])[1]
@@ -78,7 +81,10 @@ def run_parallel_augmentation(input_signal_path: Path, config: dict, methods: li
         y = input_signal.copy()
         aug = Augmenter(input_signal=y, file_name=file_name)
         tmp_config = config["augmentation_method"][method]
-        y = getattr(aug, method)(**tmp_config)
+        if tmp_config:
+            y = getattr(aug, method)(**tmp_config)
+        else:
+            y = getattr(aug, method)()
         aug_file_name = generate_file_name(file_name, config, method)
 
         if export:
@@ -88,7 +94,7 @@ def run_parallel_augmentation(input_signal_path: Path, config: dict, methods: li
                     raise Exception("You need to specify correct path for data export in the config.")
             export_audio_file(audio_signal=y, file_name=aug_file_name, path=str(export_path))
         else:
-            print_plot_play(x=y, sr=22050, text=aug_file_name)
+            print_plot_play(x=y, sr=22050, title="Augmented signal", text=aug_file_name)
 
     logger.info(f"\t\tFinished parallel augmentation.")
     logger.info(2 * "_______________________________________________________________")

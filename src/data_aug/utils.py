@@ -74,9 +74,18 @@ def generate_suffix(config: dict, method: str, is_detailed: True) -> str:
         "n_steps": "NS",
         "gain_dB": "G",
         "snr_db": "SNR",
-        "shift_pct": "SPCT"
+        "shift_pct": "SPCT",
+        "lowcut": "LC",
+        "highcut": "HC",
+        "filter_order": "FO",
+        "delay": "DL",
+        "rt60": "RT60",
+        "room_dim": "RMD",
+        "src_pos": "SRCP",
+        "mic_pos": "MICP",
+        "polarity_inversion": "PI"
     }
-
+      
     if not is_detailed:
         return simple_suffix
     else:
@@ -86,12 +95,14 @@ def generate_suffix(config: dict, method: str, is_detailed: True) -> str:
         for item in aug_settings.items():
             method_suffix = long_to_short_str[item[0]]
             value = item[1]
-            detailed_suffix = method_suffix + str(value)
+            if type(value) == list:
+                value = "".join("_" + str(e) for e in value)[1:]
+            detailed_suffix +=  f"_{method_suffix}_{str(value)}"
 
-        return simple_suffix + "_" + detailed_suffix
+        return simple_suffix + detailed_suffix
 
 
-def print_plot_play(x: np.ndarray, sr: int, text: str = ''):
+def print_plot_play(x: np.ndarray, sr: int, title: str = None, text: str = ''):
     """
     This function plots the wave frame and creates player
     Args:
@@ -104,8 +115,9 @@ def print_plot_play(x: np.ndarray, sr: int, text: str = ''):
     """
 
     print('%s Fs = %d, x.shape = %s, x.dtype = %s' % (text, sr, x.shape, x.dtype))
-    plt.figure(figsize=(8, 2))
-    plt.plot(x, color='gray')
+    plt.figure(figsize=(14, 3))
+    if title: plt.title(title)
+    plt.plot(x, color='blue')
     plt.xlim([0, x.shape[0]])
     plt.xlabel('Time (samples)')
     plt.ylabel('Amplitude')

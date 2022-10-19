@@ -21,11 +21,11 @@
 * Create venv:
   ```
   cd data_augmentation
-  python3.8 -m venv aug-venv
+  python3.8 -m venv aug-env
   ```
 * Activate venv:
   ```
-  source aug-venv/bin/activate
+  source aug-env/bin/activate
   ```
 * Install dependencies:
   ```
