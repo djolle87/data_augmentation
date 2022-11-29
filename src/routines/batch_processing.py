@@ -1,8 +1,8 @@
 import logging
 import os
+import pandas as pd
 from datetime import datetime
 from pathlib import Path
-
 from src.routines.augmentation import run_parallel_augmentation, run_sequential_augmentation
 
 
@@ -21,6 +21,7 @@ class BatchAugmentation:
         self._approach = config["augmentation_job"]["approach"]
         self._export = self._config["augmentation_job"]["export"]
         self._timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+        self._report = []
 
         if (not os.environ.get('IMPORT_DATA_PATH')) and (not os.environ.get('EXPORT_DATA_PATH')):
             self._root_import_path = Path(config["augmentation_job"]["paths"]["import_path"])
@@ -74,17 +75,25 @@ class BatchAugmentation:
                     # Run augmentation
                     if self._approach == "SEQ":
                         sequence = self._config["augmentation_approach"]["sequential"]["sequence"]
-                        run_sequential_augmentation(input_signal_path=Path(input_file_path),
-                                                    config=self._config,
-                                                    sequence=sequence,
-                                                    export=self._export,
-                                                    export_path=tmp_output_path)
+                        _, _, file_report = run_sequential_augmentation(input_signal_path=Path(input_file_path),
+                                                                        config=self._config,
+                                                                        sequence=sequence,
+                                                                        export=self._export,
+                                                                        export_path=tmp_output_path)
+
+                        self._report.append(file_report)
+
                     elif self._approach == "PAR":
                         methods = self._config["augmentation_approach"]["parallel"]["methods"]
                         n_methods = self._config["augmentation_approach"]["parallel"]["n_methods"]
-                        run_parallel_augmentation(input_signal_path=Path(input_file_path),
-                                                  config=self._config,
-                                                  methods=methods,
-                                                  n_methods=n_methods,
-                                                  export=self._export,
-                                                  export_path=tmp_output_path)
+                        file_report = run_parallel_augmentation(input_signal_path=Path(input_file_path),
+                                                                config=self._config,
+                                                                methods=methods,
+                                                                n_methods=n_methods,
+                                                                export=self._export,
+                                                                export_path=tmp_output_path)
+
+                        self._report.append(file_report)
+
+        report_df = pd.DataFrame(self._report).set_index("FILE_NAME")
+        report_df.to_csv(self._root_export_path.joinpath("report.csv"))

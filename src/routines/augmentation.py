@@ -25,18 +25,20 @@ def run_sequential_augmentation(input_signal_path: Path, config: dict, sequence:
     logger.info(f"\t\tStarting sequence augmentation: {sequence}")
     input_signal, _ = librosa.load(input_signal_path, sr=None)
     file_name = input_signal_path.name.lower()
+    file_report = {"FILE_NAME": file_name}
 
     aug_file_name = file_name.split(".wav")[0]
 
     y = input_signal.copy()
     for method in sequence:
-        aug = Augmenter(input_signal=y, file_name=file_name)
+        aug = Augmenter(input_signal=y, file_name=file_name, config=config)
         tmp_config = config["augmentation_method"][method]
         if tmp_config:
             y = getattr(aug, method)(**tmp_config)
         else:
             y = getattr(aug, method)()
 
+        file_report.update(aug._report)
         aug_file_name = aug_file_name + generate_file_name(file_name, config, method).split(".wav")[0].split(
             file_name.split(".wav")[0])[1]
 
@@ -51,7 +53,7 @@ def run_sequential_augmentation(input_signal_path: Path, config: dict, sequence:
     logger.info(f"\t\tFinished sequence augmentation.")
     logger.info(2 * "_______________________________________________________________")
 
-    return y, aug_file_name
+    return y, aug_file_name, file_report
 
 
 def run_parallel_augmentation(input_signal_path: Path, config: dict, methods: list, n_methods: int, export: bool,
@@ -73,18 +75,20 @@ def run_parallel_augmentation(input_signal_path: Path, config: dict, methods: li
 
     input_signal, _ = librosa.load(input_signal_path, sr=None)
     file_name = input_signal_path.name
+    file_report = {"FILE_NAME": file_name}
 
     sample_sequence = sample(methods, n_methods)
     logger.info(f"\t\tStarting parallel augmentation: {sample_sequence}")
 
     for method in sample_sequence:
         y = input_signal.copy()
-        aug = Augmenter(input_signal=y, file_name=file_name)
+        aug = Augmenter(input_signal=y, file_name=file_name, config=config)
         tmp_config = config["augmentation_method"][method]
         if tmp_config:
             y = getattr(aug, method)(**tmp_config)
         else:
             y = getattr(aug, method)()
+        file_report.update(aug._report)
         aug_file_name = generate_file_name(file_name, config, method)
 
         if export:
@@ -95,6 +99,8 @@ def run_parallel_augmentation(input_signal_path: Path, config: dict, methods: li
             export_audio_file(audio_signal=y, file_name=aug_file_name, path=str(export_path))
         else:
             print_plot_play(x=y, sr=22050, title="Augmented signal", text=aug_file_name)
+
+    return file_report
 
     logger.info(f"\t\tFinished parallel augmentation.")
     logger.info(2 * "_______________________________________________________________")
