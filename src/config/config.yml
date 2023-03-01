@@ -8,14 +8,14 @@ augmentation_job:
 augmentation_approach:
   sequential:
     sequence:
-      - time_stretch
+#      - time_stretch
       - pitch_shift
-      - volume_control
-      - add_noise
-      - time_shift
-      - bandpass_filter
-      - add_reverb
-      - polarity_inversion
+#      - volume_control
+#      - add_noise
+#      - time_shift
+#      - bandpass_filter
+#      - add_reverb
+#      - polarity_inversion
   parallel:
     methods:
       - time_stretch
@@ -30,52 +30,52 @@ augmentation_approach:
 
 augmentation_method:
   time_stretch:
-    p: 1 #0.5
+    p: 0
     rate: [0.8, 1.2]
   pitch_shift:
-    p: 1 #0.5
+    p: 1
     sr: 22050
     bins_per_octave: 12
     n_steps: [-2, 2]
   volume_control:
-    p: 1 #0.5
+    p: 0
     gain_dB: [-3, 3]
   add_noise:
-    p: 1 #0
+    p: 0
     snr_db: [15, 20]
   time_shift:
-    p: 1 #0.5
+    p: 0
     shift_pct: [-1, 1]
   lowpass_filter:
-    p: 1 #0
+    p: 0
     lowcut: 4000
   highpass_filter:
-    p: 1 #0
+    p: 0
     highcut: 300
   bandpass_filter:
-    p: 1 #0
+    p: 0
     lowcut: 300
     highcut: 4000
     filter_order: 5
     sr: 22050
   add_reverb:
-    p: 1 #0.5
+    p: 0
     sr: 22050
     delay: 0
-    rt60: 0.5
-    room_dim: [4, 3, 3]
-    src_pos: [2, 1, 1.4]
-    mic_pos: [2, 1.5, 1.4]
+    rt60: 0.4
+    room_dim: [6, 6, 3]
+    src_pos: [3, 3, 1.5]
+    mic_pos: [3, 2.6, 1.5]
   polarity_inversion:
-    p: 1 #0
+    p: 0
 
 file_suffixes:
-  generate_suffixes: False
-  detailed_suffixes: True
+  generate_suffixes: True
+  detailed_suffixes: False
   time_stretch:
     suffix: "_TST"
   pitch_shift:
-    suffix: "_PSH"
+    suffix: "_aug2"
   volume_control:
     suffix: "_VC"
   add_noise:

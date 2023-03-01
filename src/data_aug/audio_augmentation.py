@@ -52,12 +52,12 @@ class Augmenter:
         if self._config:
             rate = self._config["augmentation_method"]["time_stretch"]["rate"]
             if isinstance(rate, list):
-                rate = round(random.uniform(rate[0], rate[1]), 1)
+                rate = random.randint(rate[0] * 10, rate[1] * 10) / 10
             self._logger.info(f"\t\t\tUsing config value rate={rate}.")
         else:
             self._logger.info(f"\t\t\tUsing manually set value rate={rate}.")
 
-        self._report["TIME_STRATCH"] = {"RATE": rate}
+        self._report["TIME_STRETCH"] = {"RATE": rate}
         y_stretched = librosa.effects.time_stretch(y, rate=rate)
         self._logger.info(f"\t\t\tFinished time stretching.")
 
@@ -91,7 +91,7 @@ class Augmenter:
             bins_per_octave = self._config["augmentation_method"]["pitch_shift"]["bins_per_octave"]
             n_steps = self._config["augmentation_method"]["pitch_shift"]["n_steps"]
             if isinstance(n_steps, list):
-                n_steps = random.randrange(n_steps[0], n_steps[1], 1)
+                n_steps = random.randint(n_steps[0], n_steps[1])
             self._logger.info(
                 f"\t\t\tUsing following config values: sr={sr}, "
                 f"bins_per_octave={bins_per_octave} and n_steps={n_steps}.")
@@ -128,7 +128,7 @@ class Augmenter:
         if self._config:
             gain_dB = self._config["augmentation_method"]["volume_control"]["gain_dB"]
             if isinstance(gain_dB, list):
-                gain_dB = random.randrange(gain_dB[0], gain_dB[1], 1)
+                gain_dB = random.randint(gain_dB[0], gain_dB[1])
             self._logger.info(f"\t\t\tUsing config values for gain_dB: {gain_dB}.")
         else:
             self._logger.info(f"\t\t\tUsing manually set value: gain_dB={gain_dB}.")
@@ -190,7 +190,7 @@ class Augmenter:
         """
 
         p = get_random_probability(p)
-        if p==0:
+        if p == 0:
             self._logger.info(f"\t\t\tSkipping adding noise...")
             return self._input_signal
 
@@ -202,7 +202,7 @@ class Augmenter:
         if self._config:
             snr_db = self._config["augmentation_method"]["add_noise"]["snr_db"]
             if isinstance(snr_db, list):
-                snr_db = random.randrange(snr_db[0], snr_db[1], 1)
+                snr_db = random.randint(snr_db[0], snr_db[1])
             self._logger.info(f"\t\t\tUsing config values for snr_db: {snr_db}.")
         else:
             self._logger.info(f"\t\t\tUsing manually set value snr_db: {snr_db}.")
@@ -429,6 +429,7 @@ class Augmenter:
         b, a = sg.butter(order, normal_cutoff, btype='high', analog=False)
         y_filtered = sg.filtfilt(b, a, y)
         return y_filtered
+
 
 def get_random_probability(p: float):
     if p == 1:

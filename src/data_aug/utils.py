@@ -68,6 +68,7 @@ def generate_suffix(config: dict, method: str, is_detailed: True) -> str:
     simple_suffix = config["file_suffixes"][method]["suffix"]
 
     long_to_short_str = {
+        "p": "PROB",
         "rate": "R",
         "sr": "SR",
         "bins_per_octave": "BPO",
